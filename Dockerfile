@@ -27,12 +27,6 @@ RUN tslab install --python=python3
 
 RUN jupyter kernelspec list
 
-# RUN rm /home/jovyan/.local/share/jupyter/runtime &&\
-#     mkdir -p /home/jovyan/.local/share/jupyter/runtime
-
-# RUN rm /home/jovyan/.local/share/jupyter &&\
-#     mkdir /home/jovyan/.local/share/jupyter
-
 WORKDIR /notebooks
 
 VOLUME ["/notebooks"]
@@ -40,13 +34,6 @@ VOLUME ["/notebooks"]
 USER root
 RUN fix-permissions /home/$NB_USER
 
-# ENV JUPYTER_RUNTIME_DIR /tmp/runtime
 EXPOSE 8888
 
 USER $NB_UID
-
-
-
-# ENTRYPOINT ["jupyter-notebook", "--no-browser", "--ip", "0.0.0.0", "--NotebookApp.token="]
-
-# CMD ["jupyter", "notebook", "--ip=0.0.0.0"]
