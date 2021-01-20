@@ -3,7 +3,9 @@ ARG BASE_CONTAINER=jupyter/scipy-notebook
 FROM $BASE_CONTAINER
 
 RUN pip install --quiet \
-    'numpy==1.17.0' && \
+    'numpy==1.19.5' \
+    'requests2==2.16.0' \
+    'folium==0.12.1' && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
