@@ -1,5 +1,5 @@
 # @link https://hub.docker.com/r/jupyter/datascience-notebook/tags
-ARG BASE_CONTAINER=jupyter/scipy-notebook
+ARG BASE_CONTAINER=jupyter/scipy-notebook:aec555e49be6
 FROM $BASE_CONTAINER
 
 RUN pip install --quiet \
@@ -15,14 +15,13 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends git gcc cmake curl &&\
     rm -rf /var/lib/apt/lists/*
 
-############# Install node.js module #############
+############# Install typescript, nodejs module #############
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
 RUN apt-get install nodejs
 RUN node -v && npm -v
 RUN npm install -g tslab
 RUN tslab install --version
 RUN tslab install --python=python3
-RUN npm install tslab node-gyp axios sequelize
 RUN jupyter kernelspec list
 
 ############# Install java module #############
@@ -37,6 +36,9 @@ RUN jupyter kernelspec list
 
 WORKDIR /notebooks
 VOLUME ["/notebooks"]
+
+############# Install nodejs npm module #############
+RUN npm install tslab node-gyp axios sequelize
 
 USER root
 RUN fix-permissions /home/$NB_USER
